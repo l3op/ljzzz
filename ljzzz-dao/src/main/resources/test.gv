@@ -1,0 +1,10 @@
+import com.yy.game.ljzzz.vo.ActivityParam;
+
+class groovyEngine {
+
+	public String readData(long yyuid, ActivityParam param) {
+		System.out.println("gameId:" + param.getGameId());
+		
+		return "chenming";
+	}
+}

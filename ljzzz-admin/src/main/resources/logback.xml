@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<property name="logRoot" value="/data2/log/ljzzz/" />
+
+	<appender name="STDOUT"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${logRoot}/admin.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${logRoot}/admin.log.%d{MM}.gz
+			</fileNamePattern>
+			<maxHistory>7</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{HH:mm:ss} [%c{10}:%L][%-5level] [%X{req.remoteAddr}][%X{loginUserId} - %X{req.requestURIWithQueryString}]  - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+	</root>
+	
+</configuration>

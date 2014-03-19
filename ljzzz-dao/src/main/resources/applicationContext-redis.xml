@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- redis配置
+	<bean id="redis" class="com.duowan.leopard.data.redis.RedisLog4jImpl"
+		init-method="init" destroy-method="destroy" lazy-init="true">
+		<property name="server" value="${gxhd_redis.redis.host}:${gxhd_redis.redis.port}" />
+		<property name="maxActive" value="32" />
+	</bean>
+	 -->
+
+</beans> 

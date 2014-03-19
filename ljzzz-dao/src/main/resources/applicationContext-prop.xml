@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:leopard="http://leopard.game.yy.com/schema/leopard"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://leopard.game.yy.com/schema/leopard http://leopard.game.yy.com/schema/leopard-0.1.xsd ">
+
+    <!-- PropertyPlaceholderConfigurer,用于spring ${placeholder}的解析 -->
+    <bean id="propertyConfigurer"
+              class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+        <property name="ignoreResourceNotFound" value="true" />
+        <property name="localOverride" value="true" />
+        <property name="locations">
+            <list>
+                <!-- 本机测试环境配置 -->
+                <value>classpath*:dsn-local.properties</value>
+                <!-- 本机测试环境配置 -->
+                <value>classpath*:app-local.properties</value>
+                <!-- 服务器生产环境配置 -->
+                <value>file:/data/app/${DWPROJECTNO}/config/${DWENV}/app.properties</value>
+            </list>
+        </property>
+        <property name="properties">
+            <bean class="com.yy.game.rise.tools.TripleDESPropertiesFactoryBean">
+                <!-- Key必须与升龙辅助工具加密所用key相同 -->
+                <property name="key" value="mXzH3ipRpG26Hw5v8YmzqJ3M "/>
+                <property name="ignoreResourceNotFound" value="true" />
+                <property name="locations">
+                    <list>
+                        <!-- 服务器生产环境配置 -->
+                        <value>file:/data/app/${DWPROJECTNO}/config/${DWENV}/dsn.properties</value>
+                    </list>
+                </property>
+            </bean>
+        </property>
+    </bean>
+</beans>

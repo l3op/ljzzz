@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:leopard="http://leopard.game.yy.com/schema/leopard"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://leopard.game.yy.com/schema/leopard http://leopard.game.yy.com/schema/leopard-0.1.xsd 
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <bean id="parentDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" abstract="true">
+		<property name="driverClass" value="${ljzzz.jdbc.driverClassName}" />
+		<property name="jdbcUrl" value="${ljzzz.jdbc.url}" />
+		<property name="user" value="${ljzzz.jdbc.username}" />
+		<property name="password" value="${ljzzz.jdbc.password}" />
+    </bean>
+	<bean id="dataSource" parent="parentDataSource" destroy-method="close">
+		<property name="minPoolSize" value="${ljzzz.jdbc.min}" />
+		<property name="maxPoolSize" value="${ljzzz.jdbc.max}" />
+		<property name="initialPoolSize" value="${ljzzz.jdbc.init}" />
+		<property name="maxIdleTime" value="7200" />
+		<property name="idleConnectionTestPeriod" value="1800"></property>
+	</bean>
+
+	<bean id="jdbc" class="com.duowan.leopard.data.jdbc.JdbcMysqlImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- 以 @Transactional 标注来定义事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
+</beans>
